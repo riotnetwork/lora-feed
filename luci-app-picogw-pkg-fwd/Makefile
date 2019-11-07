@@ -5,7 +5,7 @@
 
 include $(TOPDIR)/rules.mk
 
-PKG_NAME:=luci-app-pkt-fwd
+PKG_NAME:=luci-app-picogw-pkt-fwd
 PKG_VERSION:=1.0
 PKG_RELEASE:=1
 
@@ -13,21 +13,21 @@ PKG_BUILD_DIR:=$(BUILD_DIR)/$(PKG_NAME)
 
 include $(INCLUDE_DIR)/package.mk
 
-define Package/luci-app-pkt-fwd
+define Package/luci-app-picogw-pkt-fwd
 	SECTION:=luci
 	CATEGORY:=LuCI
 	SUBMENU:=3. Applications
-	TITLE:=Semtech LoRa Packet Forward Configuration Interface
+	TITLE:=Semtech LoRa Packet Forward Configuration Interface ( PicoGW hardware )
 	PKGARCH:=all
-	DEPENDS:=+lora-packet-forwarder
+	DEPENDS:=+lora-picogw-packet-forwarder
 endef
 
 define Build/Compile
 endef
 
-define Package/luci-app-pkt-fwd/install
+define Package/luci-app-picogw-pkt-fwd/install
 	$(INSTALL_DIR) $(1)/
 	$(CP) ./files/* $(1)/
 endef
 
-$(eval $(call BuildPackage,luci-app-pkt-fwd))
+$(eval $(call BuildPackage,luci-app-picogw-pkt-fwd))

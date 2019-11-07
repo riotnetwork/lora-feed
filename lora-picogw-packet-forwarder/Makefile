@@ -27,7 +27,7 @@ define Package/lora-picogw-packet-forwarder
   SUBMENU:=LoRaWAN
   TITLE:=Semtech packet-forwarder program
   DEPENDS:=+libpicogw
-endef
+endef +libubox-lua +libuci-lua +dkjson
 
 define Package/lora-picogw-packet-forwarder/description
   A LoRa packet forwarder is a program running on the host of a LoRa
@@ -47,6 +47,11 @@ endef
 define Package/lora-picogw-packet-forwarder/install
 	$(INSTALL_DIR) $(1)/usr/sbin
 	$(INSTALL_BIN) $(PKG_BUILD_DIR)/lora_pkt_fwd/pico_pkt_fwd $(1)/usr/sbin
+	$(INSTALL_BIN) ./files/gen_lora_global_conf $(1)/usr/sbin
+	$(INSTALL_DIR) $(1)/etc/init.d
+	$(INSTALL_BIN) ./files/lora_pkt_fwd.init $(1)/etc/init.d/lora_pkt_fwd
+	$(INSTALL_DIR) $(1)/etc/config
+	$(INSTALL_DATA) ./files/lora-global.config $(1)/etc/config/lora-global
 endef
 
 define Package/lora-picogw-packet-forwarder-utils/install
