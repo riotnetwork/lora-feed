@@ -51,6 +51,8 @@ start_service()
 	if [ ${reset_enable} == 1 ]; then
 		reset_sx1301_board $(uci get lora-global.SX1301_conf.reset_pin)
 	fi
+	#need to be in teh same directory as teh config file when we launch the packer forwarder, no cmdline param to tell it which o use
+	cd /etc/
 
 	procd_open_instance
 	procd_set_param command $PROG
