@@ -1,0 +1,3 @@
+config CONFIG_MAC802154_SX1278
+	tristate "SX127x lora tranciever WPAN"
+
