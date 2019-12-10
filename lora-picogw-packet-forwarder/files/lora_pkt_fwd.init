@@ -4,7 +4,7 @@ STOP=10
 
 USE_PROCD=1
 
-PROG=/usr/sbin/lora_pkt_fwd
+PROG=/usr/sbin/pico_pkt_fwd
 CONFIGFILE=/etc/global_conf.json
 
 reset_sx1301_board ()
@@ -48,9 +48,9 @@ start_service()
 
 	local reset_enable=$(uci get lora-global.SX1301_conf.enable_reset_pin)
 	
-	if [ ${reset_enable} == 1 ]; then
-		reset_sx1301_board $(uci get lora-global.SX1301_conf.reset_pin)
-	fi
+#	if [ ${reset_enable} == 1 ]; then
+#		reset_sx1301_board $(uci get lora-global.SX1301_conf.reset_pin)
+#	fi
 
 	procd_open_instance
 	procd_set_param command $PROG
