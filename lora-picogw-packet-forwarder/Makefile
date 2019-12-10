@@ -26,7 +26,7 @@ define Package/lora-picogw-packet-forwarder
   CATEGORY:=Network
   SUBMENU:=LoRaWAN
   TITLE:=Semtech packet-forwarder program
-  DEPENDS:=+libpicogw
+  DEPENDS:=+libloragw +libubox-lua +libuci-lua +dkjson
 endef
 
 define Package/lora-picogw-packet-forwarder/description
@@ -46,14 +46,19 @@ endef
 
 define Package/lora-picogw-packet-forwarder/install
 	$(INSTALL_DIR) $(1)/usr/sbin
-	$(INSTALL_BIN) $(PKG_BUILD_DIR)/lora_pkt_fwd/pico_pkt_fwd $(1)/usr/sbin
+	$(INSTALL_BIN) $(PKG_BUILD_DIR)/lora_pkt_fwd/lora_pkt_fwd $(1)/usr/sbin
+	$(INSTALL_BIN) ./files/gen_lora_global_conf $(1)/usr/sbin
+	$(INSTALL_DIR) $(1)/etc/init.d
+	$(INSTALL_BIN) ./files/lora_pkt_fwd.init $(1)/etc/init.d/lora_pkt_fwd
+	$(INSTALL_DIR) $(1)/etc/config
+	$(INSTALL_DATA) ./files/lora-global.config $(1)/etc/config/lora-global
 endef
 
 define Package/lora-picogw-packet-forwarder-utils/install
 	$(INSTALL_DIR) $(1)/usr/sbin
 	$(INSTALL_BIN) $(PKG_BUILD_DIR)/bin/util_ack $(1)/usr/sbin
 	$(INSTALL_BIN) $(PKG_BUILD_DIR)/bin/util_sink $(1)/usr/sbin
-	$(INSTALL_BIN) $(PKG_BUILD_DIR)/bin/util_tx_test $(1)/usr/sbin
+	$(INSTALL_BIN) $(PKG_BUILD_DIR)/bin/util_tx_test $(1)/usr/sbin/pkg_fwd_util_tx_test
 endef
 
 $(eval $(call BuildPackage,lora-picogw-packet-forwarder))
