@@ -27,15 +27,14 @@ define Package/chirpstack-gateway-bridge
   SECTION:=net
   CATEGORY:=Network
   SUBMENU:=LoRaWAN
-  TITLE:=LoRa Gateway Bridge by chirpstack
+  TITLE:=Chirpstack Gateway Bridge
   DEPENDS:=$(GO_ARCH_DEPENDS) +mosquitto-ssl
   PKGARCH:=all
 endef
 
 define Package/chirpstack-gateway-bridge/description
-  LoRa Gateway Bridge is a service which converts LoRa packet-forwarder 
-  protocols into a LoRa Server common protocol (JSON and Protobuf).
-  This project is part of the chirpstack LoRa Server project.
+  ChirpStack Gateway Bridge is a service which converts LoRa packet-forwarder 
+  protocols into a ChirpStack Network Server common protocol (JSON and Protobuf).
 endef
 
 GO_PKG_LDFLAGS:=-s -w
