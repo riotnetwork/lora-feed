@@ -18,3 +18,4 @@ Index: picoGW_packet_forwarder-0.1.0/lora_pkt_fwd/src/jitqueue.c
 +    qsort(queue->nodes, queue->num_pkt, sizeof(queue->nodes[0]), compare);
      MSG_DEBUG(DEBUG_JIT, "sorting queue done - swapped:%d\n", counter);
  }
+ 
