@@ -8,8 +8,8 @@
 include $(TOPDIR)/rules.mk
 
 PKG_NAME:=basicstation
-PKG_VERSION:=2.0.3
-PKG_REV:=8e115bbb1b75c005f67191884888b2fefbfd8ece
+PKG_VERSION:=2.0.5
+PKG_REV:=9bcdf0e12e4568e96011a3910e6d460ec9384f8c
 PKG_RELEASE:=1
 
 PKG_SOURCE_PROTO:=git
@@ -28,7 +28,11 @@ define Package/basicstation
   CATEGORY:=Network
   SUBMENU:=LoRaWAN
   TITLE:=a LoRaWAN Gateway implementation from Semtech
-  DEPENDS:=+libloragw +libmbedtls
+  DEPENDS:= +libmbedtls
+endef
+
+define Package/basicstation/config
+	source "$(SOURCE)/Config.in"
 endef
 
 define Package/basicstation/description
@@ -40,16 +44,18 @@ define Package/basicstation/description
   LNS (downlinks) through the same secured IP to some device.
 endef
 
-# set binary version
-CMAKE_OPTIONS += -Dbasicstation_VERSION_SHORT=${PKG_VERSION}
-CMAKE_OPTIONS += -Dbasicstation_VERSION=${PKG_VERSION}
+# set additional CMake options
+CMAKE_OPTIONS += -Dbasicstation_VERSION_SHORT=$(PKG_VERSION)
+CMAKE_OPTIONS += -Dbasicstation_VERSION_FULL=$(PKG_VERSION)
+CMAKE_OPTIONS += -DPLATFORM:STRING=$(CONFIG_GATEWAY_PLATFORM)
 
 define Package/basicstation/install
 	$(INSTALL_DIR) $(1)/usr/sbin
-	$(INSTALL_BIN) $(PKG_BUILD_DIR)/station-0 $(1)/usr/sbin/station
+	$(INSTALL_BIN) $(PKG_BUILD_DIR)/station* $(1)/usr/sbin/
 	$(INSTALL_BIN) $(PKG_BUILD_DIR)/crc32 $(1)/usr/sbin/crc32
 	$(INSTALL_BIN) $(PKG_BUILD_DIR)/genkwcrcs $(1)/usr/sbin/genkwcrcs
 	$(INSTALL_BIN) ./files/uci2station $(1)/usr/sbin/uci2station
+	$(INSTALL_BIN) ./files/reset_sx1301 $(1)/usr/sbin/reset_sx1301
 
 	$(INSTALL_DIR) $(1)/etc/init.d
 	$(INSTALL_BIN) ./files/station.init $(1)/etc/init.d/station

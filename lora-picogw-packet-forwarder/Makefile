@@ -26,7 +26,7 @@ define Package/lora-picogw-packet-forwarder
   CATEGORY:=Network
   SUBMENU:=LoRaWAN
   TITLE:=Semtech packet-forwarder program
-  DEPENDS:=+libpicogw
+  DEPENDS:=+libpicogw +libubox-lua +libuci-lua +dkjson
 endef
 
 define Package/lora-picogw-packet-forwarder/description

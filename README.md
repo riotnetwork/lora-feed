@@ -5,12 +5,21 @@ Semtech and LoRaServer packages for OpenWRT.
 
 ## Table of Contents
 
+- [ToDo](#todo)
 - [Prerequisites](#prerequisites)
 - [Attention](#attention)
 - [Install](#install)
 - [Contribute](#contribute)
 - [License](#license)
 - [Donation](#donation)
+
+## ToDo
+- [ ] chirpstack server test
+- [ ] chirpstack toml configuration files
+- [ ] chirpstack toml configuration generation
+- [ ] chirpstack toml configuration with UCI
+- [x] lorawan-stack build for front-end
+- [ ] lorawan-stack LuCI interface
 
 ## Prerequisites
 
@@ -19,13 +28,14 @@ extra packages should be installed if you want to install the LoRaServer:
 
     sudo apt install go-bindata
     sudo apt install nodejs
+    sudo apt install npm
 
 ## Attention
 If you want to compile `basicstation` with OpenWRT Version > 18.06, you need to uninstall the `lora-gateway-hal` 
 and install the same one from this feed. Because the official package has no patch for `basicstaion`.
 
-    $ scripts/feeds uninstall lora-gateway-hal
-    $ scripts/feeds install lora-gateway-hal -p lora
+    $ ./scripts/feeds uninstall lora-gateway-hal
+    $ ./scripts/feeds install -p lora lora-gateway-hal
 
 ## Install
 
@@ -36,8 +46,8 @@ Edit your feeds.conf or feed.conf.default and add the following to it:
 
 Update your build environment and install the packages:
 
-    $ scripts/feeds update lora
-    $ scripts/feeds install -a -p lora
+    $ ./scripts/feeds update lora
+    $ ./scripts/feeds install -a -p lora
     $ make menuconfig
 
 Most programs are located in `Network -> LoRaWAN`
@@ -45,11 +55,6 @@ Most programs are located in `Network -> LoRaWAN`
 Exit, save and build
 
     $ make -j4
-
-Following two packages are only working on Raspberry Pi
- 
-    $ make package/wiringpi/install
-    $ make package/single_chan_pkt_fwd/install
 
 ## Contribute
 

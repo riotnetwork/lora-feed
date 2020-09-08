@@ -1,3 +1,4 @@
+
 m=Map("lora-global",translate("LoRa Gateway"),translate("Here you can configure the LoRa gateway and pakcet forwarder"))
 
 --
@@ -76,6 +77,26 @@ lbt_enable.default = false
 lbt_enable.datatype = "bool"
 lbt_enable:value(true, translate("True"))
 lbt_enable:value(false, translate("False"))
+
+--
+-- RSSI Target
+--
+lbt_rssi_target = gateway:taboption("lbt", Value,"rssi_target",translate("RSSI Target Value"))
+lbt_rssi_target.optional = true;
+lbt_rssi_target.rmempty = true;
+lbt_rssi_target.default = '-80'
+lbt_rssi_target.datatype = "float"
+lbt_rssi_target:depends("lbt_enable", "true")
+
+--
+-- sx127x RSSI Offset
+--
+sx127x_rssi_offset = gateway:taboption("lbt", Value,"sx127x_rssi_offset",translate("SX127x RSSI Offset"))
+sx127x_rssi_offset.optional = true;
+sx127x_rssi_offset.rmempty = true;
+sx127x_rssi_offset.default = '-4'
+sx127x_rssi_offset.datatype = "float"
+sx127x_rssi_offset:depends("lbt_enable", "true")
 
 --
 -- GPS Enable
@@ -339,6 +360,7 @@ bandwidth.rmempty = false;
 spread_factor = chan:option(Value,"spread_factor",translate("Spread Factor"))
 spread_factor.optional = true;
 spread_factor.rmempty =false;
+
 datarate = chan:option(Value,"datarate",translate("Datarate"))
 datarate.optional = true;
 datarate.rmempty = false;
