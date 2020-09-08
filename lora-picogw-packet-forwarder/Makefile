@@ -58,7 +58,7 @@ define Package/lora-picogw-packet-forwarder-utils/install
 	$(INSTALL_DIR) $(1)/usr/sbin
 	$(INSTALL_BIN) $(PKG_BUILD_DIR)/bin/util_ack $(1)/usr/sbin
 	$(INSTALL_BIN) $(PKG_BUILD_DIR)/bin/util_sink $(1)/usr/sbin
-	$(INSTALL_BIN) $(PKG_BUILD_DIR)/bin/util_tx_test $(1)/usr/sbin
+	$(INSTALL_BIN) $(PKG_BUILD_DIR)/bin/util_tx_test $(1)/usr/sbin/util_pf_tx_test
 endef
 
 $(eval $(call BuildPackage,lora-picogw-packet-forwarder))
